@@ -21,7 +21,8 @@ namespace WebApiTest.Data
 
         public async Task<IEnumerable<CourseResult>> GetCourseResultsAsync()
         {
-            return await _context.CourseResult.ToListAsync();
+            var course = await _context.CourseResult.ToListAsync();
+            return course;
         }
 
         public async Task<User> GetUserByIdAsync(int id)
@@ -33,5 +34,12 @@ namespace WebApiTest.Data
         {
             return await _context.SaveChangesAsync() > 0;
         }
+
+         public async Task<IEnumerable<CourseResult>> GetCourseByUserIdAsync(int id)
+        {
+            var course = await _context.CourseResult.Where(u => u.UserId == id).ToListAsync();
+            return course;
+        }
+
     }
 }

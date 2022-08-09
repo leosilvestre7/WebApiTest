@@ -9,5 +9,6 @@ namespace WebApiTest.Data.Interfaces
         Task<bool> SaveAll();
         Task<User> GetUserByIdAsync(int id);
         Task<IEnumerable<CourseResult>> GetCourseResultsAsync();
+        Task<IEnumerable<CourseResult>> GetCourseByUserIdAsync(int id);
     }
 }
