@@ -1,5 +1,6 @@
 using System;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebApiTest.Data.Interfaces;
 using WebApiTest.Dtos;
@@ -7,6 +8,7 @@ using WebApiTest.Models;
 
 namespace WebApiTest.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class CourseResultController : ControllerBase
@@ -31,11 +33,6 @@ namespace WebApiTest.Controllers
         [HttpPost]
         public async Task<IActionResult> Post(CourseResultCreateDto courseResultDto)
         {
-           /* var courseResultToCreate = new CourseResult();
-            courseResultToCreate.CourseId = courseResultDto.CourseId;
-            courseResultToCreate.StudentId = courseResultDto.StudentId;
-            courseResultToCreate.UserId = courseResultDto.UserId;
-            courseResultToCreate.Note = courseResultDto.Note;*/
             var courseResultToCreate = _mapper.Map<CourseResult>(courseResultDto);
             _repository.Add(courseResultToCreate);
             if (await _repository.SaveAll())
@@ -49,7 +46,6 @@ namespace WebApiTest.Controllers
             var courseResult = await _repository.GetCourseByUserIdAsync(id);
 
             var courseResultDto = new CourseResultListDto();
-
 
             if (courseResult == null)
                 return NotFound("El usuario no tiene notas registradas");

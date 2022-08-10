@@ -10,6 +10,9 @@ namespace WebApiTest.Mapper
         {
             CreateMap<CourseResultCreateDto, CourseResult>();
             CreateMap<CourseResult, CourseResultListDto>();
+            CreateMap<UserRegisterDto, User>();
+            CreateMap<UserLoginDto, User>();
+            CreateMap<User, UserListDto>();
         }
     }
 }

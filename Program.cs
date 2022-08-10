@@ -6,6 +6,8 @@ using WebApiTest.Mapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using WebApiTest.Services.Interfaces;
+using WebApiTest.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +27,11 @@ builder.Services.AddDbContext<DataContext>(options => {
 });
 
 builder.Services.AddScoped<IApiRepository, ApiRepository>();
+
+builder.Services.AddScoped<ItokenService, TokenService>();
+
+builder.Services.AddScoped<IAuthRepository, AuthRepository>();
+
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
 
@@ -51,7 +58,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
